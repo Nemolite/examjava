@@ -1,79 +1,43 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
+import javax.swing.*;
+//Домашнее задание 2. Программа для расчета сметы.
+//        Условие. Для упрощения типовых расчетов прораб заказал разработчикам
+//        создать программу для расчета сметы проекта.
+//        Программа получает на вход 4 числа:
+//        стоимость работ,
+//        стоимость материалов,
+//        скидку в процентах
+//        и бюджет заказчика.
+//        Программа должна считать всю стоимость проекта (материалы+работы)
+//        с учетом скидки и определять, хватит ли у заказчика денег.
+//
+//        Требования:
+//        1) Программа должна считывать 4 числа с клавиатуры.
+//        2) Программа должна корректно рассчитывать стоимость проекта с учетом скидки.
+//        3) Программа должна выводить общую стоимость проекта с учетом скидки.
+//        4) Программа должна проверять, хватит ли у заказчика денег и выводить результат проверки.
+//        5) Необходимо загрузить код программы с комментариями.
 
 public class Program {
     public static void main(String[] args) {
-        System.out.println("Hello Java!");
-        int a = 18;
-        System.out.println(a);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите стоимость работ:");
+        float jobs = sc.nextInt();
+        System.out.println("Введите стоимость материалов:");
+        float materials = sc.nextInt();
+        System.out.println("Введите скидку в процентах:");
+        float discounts = sc.nextInt();
+        System.out.println("Введите бюджет заказчика:");
+        float budget = sc.nextInt();
 
-        var b = 20.13;
-        System.out.println(b);
-
-        long num = 2147483649L;
-        System.out.println(num);
-
-        int test = 123_456;
-        System.out.println(test);
-
-        double chislo = 123.456;
-        System.out.println(chislo);
-
-        float endlo = 57.789f;
-        System.out.println(endlo);
-
-        final int DART = 34;
-        System.out.println(DART);
-
-        char ch='e';
-        System.out.println(ch);
-
-        String linty ="Hello , World";
-        System.out.println(linty);
-
-        String bigtext = "Пример большого текста\n" +
-                "Вторая строка большого текста\n"+
-                "Третья строка большого текста\n"+
-                "Четвертая строка болього текста";
-        System.out.println(bigtext);
-
-        String bigtextnew = """
-                Новый пример большого текста
-                Вторая строка нового примера
-                Третья строка нового примера
-                Четвертая строка нового примера
-                """;
-        System.out.println(bigtextnew);
-
-        int x = 10;
-        int y = 20;
-
-        System.out.print("x = "+ x +" "+ "y = "+y+ " сумма = "+ ( x + y )+ "\n");
-
-        String name = "Sergey";
-        int age = 51;
-        float rating = 123.34f;
-
-        System.out.printf("Имя = %s, Возраст = %d Рейтинг = %f\n",name,age,rating);
-
-        Scanner in = new Scanner(System.in);
-        /*
-        System.out.print("=");
-        int numb = in.nextInt();
-        System.out.printf("Твой номер=%d",numb);
-        in.close();
-        */
-        /* Ввод данных из консоли*/
-
-        System.out.print("Ваше имя = ");
-        String namemi = in.nextLine();
-
-        System.out.print("Ваш возраст = ");
-        int agemi = in.nextInt();
-
-        System.out.print("Ваш рейтинг = ");
-        float rite = in.nextFloat();
-
-        System.out.printf("Спасибо\n Ваше имя = %s\n Ваш возраст = %d\n Ваш рейтинг = %.2f\n",namemi,agemi,rite);
-        in.close();
+        float price_project = (jobs + materials) - (jobs + materials)*(discounts/100);
+            System.out.println(price_project);
+        if (price_project>=budget) {
+            System.out.println("Бюджета достаточно");
+        } else {
+            System.out.println("Бюджета не хватит");
+        }
     }
 }
+
