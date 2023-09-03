@@ -1,6 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import javax.swing.*;
 //Домашнее задание 2. Программа для расчета сметы.
 //        Условие. Для упрощения типовых расчетов прораб заказал разработчикам
 //        создать программу для расчета сметы проекта.
@@ -21,19 +19,31 @@ import javax.swing.*;
 
 public class Program {
     public static void main(String[] args) {
+        // Программа должна считывать 4 числа с клавиатуры.
         Scanner sc = new Scanner(System.in);
+        // 1 чилсо, стоимость работ
         System.out.println("Введите стоимость работ:");
-        float jobs = sc.nextInt();
+        float jobs = sc.nextFloat();
+        // 2 чилсо, стоимость материалов
         System.out.println("Введите стоимость материалов:");
-        float materials = sc.nextInt();
+        float materials = sc.nextFloat();
+        // 3.скидку в процентах
         System.out.println("Введите скидку в процентах:");
-        float discounts = sc.nextInt();
+        float discounts = sc.nextFloat();
+        // 4.скидку в процентах
         System.out.println("Введите бюджет заказчика:");
-        float budget = sc.nextInt();
-
-        float price_project = (jobs + materials) - (jobs + materials)*(discounts/100);
-            System.out.println(price_project);
-        if (price_project>=budget) {
+        float budget = sc.nextFloat();
+        // Расчет стоимости проекта без учета скидки
+        float project = jobs + materials;
+        // Расчет скидки от стоимости проекта
+        float x = (discounts * project)/100;
+        System.out.print("Стоимость скидки = ");
+        System.out.println(x);
+        // Расчет  стоимости проекта c учетом (с минусом) скидки
+        float price_project = project - x;
+        System.out.print("Стоимость проекта с учетом скидки = ");
+        System.out.println(price_project);
+        if (price_project<=budget) {
             System.out.println("Бюджета достаточно");
         } else {
             System.out.println("Бюджета не хватит");
