@@ -10,6 +10,7 @@ public class Example1 {
             }
             catch (ArithmeticException e){
                 System.out.println("Warning! Divader on zero");
+                System.out.println(e);
             }
         }
     }
