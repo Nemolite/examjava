@@ -156,27 +156,32 @@ class Main extends Store {
 public class Exam {
     public static void main(String[] args) {
         Main obj = new Main();
-        // Просмотр товаров
-        obj.showProducts();
+
        //Выбор товара
         Product product = new Product();
         product.setProduct("Сувенир","Россия",1000,1);
+        obj.addProductToWarehouse(product);
+        // Просмотр товаров
+        obj.showProducts();
         // Добавление товара в корзину
         obj.addProductToCart(product);
+        // Просмотр стоимости заказа
+        obj.countProductInCart();
         // Удаление товара из корзины
-        obj.delProductOfCart(product);
-
-        // Раздел адвинистратора
-
+        // obj.delProductOfCart(product);
+        Cart cr = new Cart();
+        cr.addProductToCart(obj);
+        obj.solidFact(cr);
         obj.getCountSale();
         //Добавление товара на склад магазина
-        Product adminproduct = new Product();
-        adminproduct.setProduct("Новый Сувенир","Россия",1500,1);
-        obj.addProductToWarehouse(adminproduct);
+        product.setProduct("Новый Сувенир","Россия",1500,1);
+        obj.addProductToWarehouse(product);
         // Обновление цены и количества товара
-        obj.updateInfoProduct(adminproduct,2000,2);
+        obj.updateInfoProduct(product,2000,2);
         // Удаление товара из склада магазина
-        obj.delProductOfWarehouse(adminproduct);
+       // obj.delProductOfWarehouse(product);
+
+        obj.showProducts();
 
     }
 }
