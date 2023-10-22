@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab621e3-3f16-42e3-9ebc-08978a4a7562" name="Changes" comment="catch2">
+    <list default="true" id="cab621e3-3f16-42e3-9ebc-08978a4a7562" name="Changes" comment="file2">
+      <change afterPath="$PROJECT_DIR$/src/Exam.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stady/Work.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Example3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Example3.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697126591249</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="file2">
+      <created>1697519510141</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1697519510141</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +137,7 @@
     <MESSAGE value="Exception" />
     <MESSAGE value="ArithmeticException" />
     <MESSAGE value="catch2" />
-    <option name="LAST_COMMIT_MESSAGE" value="catch2" />
+    <MESSAGE value="file2" />
+    <option name="LAST_COMMIT_MESSAGE" value="file2" />
   </component>
 </project>
