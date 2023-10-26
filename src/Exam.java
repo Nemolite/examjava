@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 /**
  * Продукт(Сувенир)
  */
@@ -64,6 +65,21 @@ class Cart extends Product{
             }
         }
         return total;
+    }
+
+    /**
+     * Показ товаров в корзине
+     */
+    public void showProductInCart(){
+        if (products.size()!=0){
+            for (int i = 0; i < products.size(); ++i){
+                System.out.println(products.get(i).name);
+                System.out.println(products.get(i).country);
+                System.out.println(products.get(i).price);
+                System.out.println(products.get(i).countProductToWarehouse);
+            }
+        }
+
     }
 }
 /**
@@ -140,6 +156,7 @@ class Main extends Store {
      */
     public void showProducts(){
         System.out.println("Товары нашего магазина");
+        System.out.println(warehouse.size());
         if (warehouse.size()!=0){
             for (int i = 0; i < warehouse.size(); ++i){
                 System.out.println(warehouse.get(i).name);
@@ -155,33 +172,58 @@ class Main extends Store {
 
 public class Exam {
     public static void main(String[] args) {
+        boolean marker = true;
         Main obj = new Main();
-
-       //Выбор товара
         Product product = new Product();
-        product.setProduct("Сувенир","Россия",1000,1);
-        obj.addProductToWarehouse(product);
-        // Просмотр товаров
-        obj.showProducts();
-        // Добавление товара в корзину
-        obj.addProductToCart(product);
-        // Просмотр стоимости заказа
-        obj.countProductInCart();
-        // Удаление товара из корзины
-        // obj.delProductOfCart(product);
         Cart cr = new Cart();
-        cr.addProductToCart(obj);
-        obj.solidFact(cr);
-        obj.getCountSale();
-        //Добавление товара на склад магазина
-        product.setProduct("Новый Сувенир","Россия",1500,1);
-        obj.addProductToWarehouse(product);
-        // Обновление цены и количества товара
-        obj.updateInfoProduct(product,2000,2);
-        // Удаление товара из склада магазина
-       // obj.delProductOfWarehouse(product);
 
-        obj.showProducts();
+        // Добавить товар на склвд ()магазин
+        product.setProduct("Сувенир","Россия",1500,1);
+        obj.addProductToWarehouse(product);
+
+
+        System.out.println("Добро пожаловать в наш интернет-магазин сувениров");
+        while (marker){
+            System.out.println("1 - показать все товары ");
+            System.out.println("2 - соверишть покупку ");
+            System.out.println("3 - показать корзину покупок ");
+            System.out.println("0 - покинуть магазин ");
+            Scanner in = new Scanner(System.in);
+            System.out.print("Ваш выбор =  ");
+            int num = in.nextInt();
+            switch (num) {
+                case  1:
+                    System.out.println("1 - показать все товары ");
+                    // Просмотр товаров
+                    obj.showProducts();
+                    marker = true;
+                    break;
+                case 2:
+                    System.out.println("2 - соверишть покупку ");
+                    // В данном месте предполагается выбор товара
+                    //в виду того что в задние этого нет, поэтому не реализовано
+
+                    // Добавление товара в корзину
+                    obj.addProductToCart(product);
+                    marker = true;
+                    break;
+                case 3:
+                    System.out.println("3 - показать корзину покупок ");
+                    // Показ товаров в корзине
+                    obj.showProductInCart();
+                    marker = true;
+                    break;
+               case 0:
+                   System.out.println("0 - покинуть магазин ");
+                    marker = false;
+                    break;
+                default:
+                    System.out.println("Вы ошиблись, поторите код");
+                    marker = true;
+                    break;
+            }
+
+        }
 
     }
 }
