@@ -105,7 +105,8 @@ class Store extends Cart{
         sold.add(cart);
     }
     /**
-     * Добавление нового товара на склад
+     * Добавление нового товара в магазин (на склад)
+     *
      */
     public void addProductToWarehouse(Product product){
         warehouse.add(product);
@@ -114,12 +115,12 @@ class Store extends Cart{
      * Обновление информации о товаре(цена, количество)
      */
     public void updateInfoProduct(Product product,double price,int countProductToWarehouse){
-
-        if (warehouse.contains(product)){
-            warehouse.remove(product);
-            product.price = price;
-            product.countProductToWarehouse =countProductToWarehouse;
-            warehouse.add(product);
+        int tempcount;
+        for (int i = 0; i < warehouse.size(); ++i){
+            if (product.name.equals(warehouse.get(i).name)) {
+                tempcount = warehouse.get(i).countProductToWarehouse;
+                warehouse.get(i).countProductToWarehouse =tempcount - countProductToWarehouse;
+            }
         }
     }
     /**
@@ -217,7 +218,7 @@ public class Exam {
         Cart cr = new Cart();
 
 
-        // Добавить товар на склад магазина
+        // Добавить товар на склад магазина  (Начальная загрузка)
         // Первый товар
         Product product = new Product();
         product.setProduct("Сувенир","Россия",1500,3);
@@ -244,6 +245,7 @@ public class Exam {
             System.out.println("* Раздел для Администратора *");
             System.out.println("***************************");
             System.out.println("4 - показать статистику продаж ");
+            System.out.println("5 - добавить товар в магазин (на склад) ");
             Scanner in = new Scanner(System.in);
             System.out.print("Ваш выбор =  ");
             int num = in.nextInt();
@@ -284,8 +286,7 @@ public class Exam {
                             newproduct.countProductToWarehouse = getcountincart;
 
                             // Корректировка количества товара в магазине (на складе)
-                            int corrcount = newproduct.countProductToWarehouse-getcountincart;
-                        obj.updateInfoProduct(newproduct,newproduct.price,corrcount);
+                        obj.updateInfoProduct(newproduct,newproduct.price,getcountincart);
 
                         // Добавление товара в корзину
                         cr.addProductToCart(newproduct);
@@ -310,6 +311,32 @@ public class Exam {
                     System.out.println("Выбрано 4 - показать статистику продаж ");
                     System.out.println("Проданные товары");
                     obj.getCountSale();
+                    marker = true;
+                    break;
+                case 5:
+                    System.out.println("Выбрано 5 - добавить товар в магазин (на склад) ");
+                    System.out.println("Добававление товара в магазин");
+                    while (true){
+                        try{
+                            Scanner admin = new Scanner(System.in);
+                            System.out.print("Ведите наименование товара (Сувенира) = ");
+                            String adminproductname = admin.nextLine();
+                            System.out.print("Ведите страну производитель товара (сувенира) = ");
+                            String adminproductcountry = admin.nextLine();
+                            System.out.print("Ведите стоимость товара (сувенира) = ");
+                            double adminprice = admin.nextDouble();
+                            System.out.print("Ведите количество товара (сувенира) = ");
+                            int admincount = admin.nextInt();
+                            // Добавление товара в магазин (на склад)
+                            Product adminproduct = new Product();
+                            adminproduct.setProduct(adminproductname,adminproductcountry,adminprice,admincount);
+                            obj.addProductToWarehouse(adminproduct);
+                            break;
+                        } catch (Exception e){
+                            System.out.println("Вы неправильно ввели данные, повторите ввод ");
+                        }
+                    }
+
                     marker = true;
                     break;
                case 0:
