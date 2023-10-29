@@ -128,7 +128,21 @@
       <option name="project" value="LOCAL" />
       <updated>1698001837714</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="ДЗ 1 модуль 2 v.2">
+      <created>1698346463589</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1698346463589</updated>
+    </task>
+    <task id="LOCAL-00013" summary="ДЗ 1 модуль 2 v.2">
+      <created>1698346486498</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698346486498</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +166,7 @@
     <MESSAGE value="catch2" />
     <MESSAGE value="file2" />
     <MESSAGE value="ДЗ1 модуль 2" />
+    <MESSAGE value="ДЗ 2 модуль 2 v.2" />
     <MESSAGE value="ДЗ 1 модуль 2 v.2" />
     <option name="LAST_COMMIT_MESSAGE" value="ДЗ 1 модуль 2 v.2" />
   </component>

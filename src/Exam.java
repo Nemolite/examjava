@@ -28,6 +28,7 @@ class Product{
 
     }
 
+
 }
 /**
  * Корзина покупателя
@@ -71,6 +72,7 @@ class Cart extends Product{
      * Показ товаров в корзине
      */
     public void showProductInCart(){
+        System.out.println("Товары в вашей корзине");
         if (products.size()!=0){
             for (int i = 0; i < products.size(); ++i){
                 System.out.println(products.get(i).name);
@@ -99,6 +101,7 @@ class Store extends Cart{
      * Фиксируем продажу товара
      */
     public void solidFact(Cart cart){
+
         sold.add(cart);
     }
     /**
@@ -123,15 +126,18 @@ class Store extends Cart{
      * Просмотр статистики продаж
      */
     public void getCountSale(){
-        System.out.println("Проданные товары");
+        System.out.println("Продано товаров:");
+
         if (sold.size()!=0){
+            System.out.println("Всего:");
+            System.out.println(sold.size());
+            int totslsled = 0;
             for (int i = 0; i < sold.size(); ++i){
-                System.out.println(sold.get(i).name);
-                System.out.println(sold.get(i).country);
-                System.out.println(sold.get(i).price);
-                System.out.println(sold.get(i).countProductToWarehouse);
+                totslsled+=sold.get(i).countProductInCart();
 
             }
+            System.out.println("На сумму:");
+            System.out.println(totslsled);
         }
     }
     /**
@@ -142,6 +148,7 @@ class Store extends Cart{
             warehouse.remove(product);
         }
     }
+
 }
 /**
  * Главный, реализованы возможности
@@ -152,20 +159,53 @@ class Store extends Cart{
  */
 class Main extends Store {
     /**
-     * Просмотр товаров
+     * Показ всех товаров в магазине (на складе)
      */
     public void showProducts(){
         System.out.println("Товары нашего магазина");
-        System.out.println(warehouse.size());
+        System.out.printf("Количество товаров в магазине - %d",warehouse.size());
+        System.out.println();
+        System.out.println("***************************************************");
         if (warehouse.size()!=0){
             for (int i = 0; i < warehouse.size(); ++i){
                 System.out.println(warehouse.get(i).name);
                 System.out.println(warehouse.get(i).country);
                 System.out.println(warehouse.get(i).price);
                 System.out.println(warehouse.get(i).countProductToWarehouse);
+                System.out.println("***************************************************");
 
             }
         }
+    }
+
+    /**
+     * Поиск товара в магазине (на складе)
+     * @param name
+     * @return boolean checker
+     */
+    public boolean findProductOfWarehouse(String name){
+        boolean checker = false;
+        for (int i = 0; i < warehouse.size(); ++i){
+            if (name.equals(warehouse.get(i).name)){
+                checker = true;
+                break;
+            }
+        }
+        return checker;
+    }
+
+    public Product getProductOfWarehouse(String name){
+        Product product = new Product();
+        for (int i = 0; i < warehouse.size(); ++i){
+            if (name.equals(warehouse.get(i).name)){
+                product.setProduct(warehouse.get(i).name,warehouse.get(i).country,warehouse.get(i).price,warehouse.get(i).countProductToWarehouse);
+
+                break;
+            }
+        }
+
+        return product;
+
     }
 
 }
@@ -174,12 +214,24 @@ public class Exam {
     public static void main(String[] args) {
         boolean marker = true;
         Main obj = new Main();
-        Product product = new Product();
         Cart cr = new Cart();
 
-        // Добавить товар на склвд ()магазин
-        product.setProduct("Сувенир","Россия",1500,1);
+
+        // Добавить товар на склад магазина
+        // Первый товар
+        Product product = new Product();
+        product.setProduct("Сувенир","Россия",1500,3);
         obj.addProductToWarehouse(product);
+
+        // Второй товар
+        Product product1 = new Product();
+        product1.setProduct("Новый Сувенир","Россия",2000,10);
+        obj.addProductToWarehouse(product1);
+
+        // Третий товар
+        Product product2 = new Product();
+        product2.setProduct("Старинный Сувенир","Россия",1000,5);
+        obj.addProductToWarehouse(product2);
 
 
         System.out.println("Добро пожаловать в наш интернет-магазин сувениров");
@@ -188,35 +240,83 @@ public class Exam {
             System.out.println("2 - соверишть покупку ");
             System.out.println("3 - показать корзину покупок ");
             System.out.println("0 - покинуть магазин ");
+            System.out.println("****************************");
+            System.out.println("* Раздел для Администратора *");
+            System.out.println("***************************");
+            System.out.println("4 - показать статистику продаж ");
             Scanner in = new Scanner(System.in);
             System.out.print("Ваш выбор =  ");
             int num = in.nextInt();
             switch (num) {
                 case  1:
-                    System.out.println("1 - показать все товары ");
+                    System.out.println("Выбрано 1 - показать все товары ");
                     // Просмотр товаров
                     obj.showProducts();
                     marker = true;
                     break;
                 case 2:
-                    System.out.println("2 - соверишть покупку ");
-                    // В данном месте предполагается выбор товара
-                    //в виду того что в задние этого нет, поэтому не реализовано
+                    System.out.println("Выбрано 2 - соверишть покупку ");
+                    System.out.print("Выберите товар для покупки, ввыедите назавние  = ");
+                    Scanner inproduct = new Scanner(System.in);
+                    String nameproduct = inproduct.nextLine();
 
-                    // Добавление товара в корзину
-                    obj.addProductToCart(product);
+                    boolean checker = obj.findProductOfWarehouse(nameproduct);
+                    if (checker){
+                        int getcountincart;
+                        Product productForCart = obj.getProductOfWarehouse(nameproduct);
+                        System.out.printf("Количество товара %s в магазине %d",productForCart.name,productForCart.countProductToWarehouse);
+                        System.out.println();
+                            while (true){
+                                System.out.print("Ведите количество желаемого товара = ");
+                                Scanner getcount = new Scanner(System.in);
+                                getcountincart = getcount.nextInt();
+                                if(getcountincart>0&&getcountincart<=productForCart.countProductToWarehouse){
+                                    break;
+                                } else {
+                                    System.out.println("Вы ввели неверное количество товаров, потворите ввод ");
+                                }
+                            }
+                         // Формируем товар с учётом выбранного количества
+                        Product newproduct = new Product();
+                            newproduct.name = productForCart.name;
+                            newproduct.price = productForCart.price;
+                            newproduct.country = productForCart.country;
+                            newproduct.countProductToWarehouse = getcountincart;
+
+                            // Корректировка количества товара в магазине (на складе)
+                            int corrcount = newproduct.countProductToWarehouse-getcountincart;
+                        obj.updateInfoProduct(newproduct,newproduct.price,corrcount);
+
+                        // Добавление товара в корзину
+                        cr.addProductToCart(newproduct);
+                        // Фиксируем продажу товара
+                        obj.solidFact(cr);
+
+
+                    } else {
+                        System.out.println("Товара нет в корзине, либо вы не правильно ввели назавние");
+                    }
                     marker = true;
                     break;
                 case 3:
-                    System.out.println("3 - показать корзину покупок ");
+                    System.out.println("Выбрано 3 - показать корзину покупок ");
                     // Показ товаров в корзине
-                    obj.showProductInCart();
+                    cr.showProductInCart();
+                    System.out.print("Количество товаров в корзине = ");
+                    System.out.println(cr.countProductInCart());
+                    marker = true;
+                    break;
+                case 4:
+                    System.out.println("Выбрано 4 - показать статистику продаж ");
+                    System.out.println("Проданные товары");
+                    obj.getCountSale();
                     marker = true;
                     break;
                case 0:
                    System.out.println("0 - покинуть магазин ");
                     marker = false;
                     break;
+
                 default:
                     System.out.println("Вы ошиблись, поторите код");
                     marker = true;
