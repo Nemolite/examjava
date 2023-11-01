@@ -1,3 +1,9 @@
+/**
+ * Ответ бота
+ * Отправьте исправленное ДЗ через механизм проверки в личном кабинете.
+ */
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -34,6 +40,7 @@ class Product{
  * Корзина покупателя
  */
 class Cart extends Product{
+    double totalcart;
     /**
      * Формирование корзина покупателя
      */
@@ -47,11 +54,13 @@ class Cart extends Product{
     }
 
     /**
-     * Удаление товара из корзины
+     * Удаление товаров из корзины
      */
-    public void delProductOfCart(Product product){
-        if (products.contains(product)){
-            products.remove(product);
+    public void delProductOfCart(){
+        if (products.size()!=0){
+            for (int i = 0; i < products.size(); ++i){
+                products.remove(i);
+            }
         }
     }
 
@@ -65,6 +74,7 @@ class Cart extends Product{
                 total+=(products.get(i).price*products.get(i).countProductToWarehouse);
             }
         }
+        this.totalcart = total;
         return total;
     }
 
@@ -93,12 +103,17 @@ class Store extends Cart{
      */
     ArrayList<Product> warehouse = new ArrayList<Product>();
     /**
-     * Проданные товары
+     * Корзины товаров пользователей
      */
     ArrayList<Cart> sold = new ArrayList<Cart>();
 
     /**
-     * Фиксируем продажу товара
+     * Проданные товара
+     */
+    ArrayList<Double> soldproducts = new ArrayList<Double>();
+
+    /**
+     * Фиксируем добавление товара в корзину
      */
     public void solidFact(Cart cart){
 
@@ -123,18 +138,29 @@ class Store extends Cart{
             }
         }
     }
+
+
+    public void tosoldproducts(){
+        if (sold.size()!=0){
+            for (int i = 0; i < sold.size(); ++i){
+//                System.out.println(sold.get(i).totalcart);
+              soldproducts.add(sold.get(i).totalcart);
+            }
+        }
+    }
+
     /**
      * Просмотр статистики продаж
      */
     public void getCountSale(){
         System.out.println("Продано товаров:");
 
-        if (sold.size()!=0){
+        if (soldproducts.size()!=0){
             System.out.println("Всего:");
-            System.out.println(sold.size());
+            System.out.println(soldproducts.size());
             int totslsled = 0;
-            for (int i = 0; i < sold.size(); ++i){
-                totslsled+=sold.get(i).countProductInCart();
+            for (int i = 0; i < soldproducts.size(); ++i){
+                totslsled+=soldproducts.get(i);
 
             }
             System.out.println("На сумму:");
@@ -238,8 +264,9 @@ public class Exam {
         System.out.println("Добро пожаловать в наш интернет-магазин сувениров");
         while (marker){
             System.out.println("1 - показать все товары ");
-            System.out.println("2 - соверишть покупку ");
+            System.out.println("2 - добавить в корзину");
             System.out.println("3 - показать корзину покупок ");
+            System.out.println("6 - купить (оформить заказ) ");
             System.out.println("0 - покинуть магазин ");
             System.out.println("****************************");
             System.out.println("* Раздел для Администратора *");
@@ -310,6 +337,7 @@ public class Exam {
                 case 4:
                     System.out.println("Выбрано 4 - показать статистику продаж ");
                     System.out.println("Проданные товары");
+
                     obj.getCountSale();
                     marker = true;
                     break;
@@ -337,6 +365,15 @@ public class Exam {
                         }
                     }
 
+                    marker = true;
+                    break;
+                case 6:
+                    System.out.println("Выбрано 6 - купить (оформить заказ) ");
+                    System.out.println("Покупка товара");
+
+                    cr.countProductInCart();
+                    obj.tosoldproducts();
+                    cr.delProductOfCart();
                     marker = true;
                     break;
                case 0:
