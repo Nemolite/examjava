@@ -1,9 +1,3 @@
-/**
- * Ответ бота
- * Отправьте исправленное ДЗ через механизм проверки в личном кабинете.
- */
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -26,14 +20,20 @@ class Product{
      * Количество товара (сувениров) на складе
      */
     int countProductToWarehouse;
+
+    /**
+     * Формируем товар (сувенир)
+     * @param name
+     * @param country
+     * @param price
+     * @param countProductToWarehouse
+     */
     public void setProduct(String name,String country,double price,int countProductToWarehouse){
         this.name = name;
         this.country = country;
         this.price = price;
         this.countProductToWarehouse = countProductToWarehouse;
-
     }
-
 
 }
 /**
@@ -139,12 +139,13 @@ class Store extends Cart{
         }
     }
 
-
+    /**
+     * Передача информации о проданном товаре в статистику продаж
+     */
     public void tosoldproducts(){
         if (sold.size()!=0){
             for (int i = 0; i < sold.size(); ++i){
-//                System.out.println(sold.get(i).totalcart);
-              soldproducts.add(sold.get(i).totalcart);
+                soldproducts.add(sold.get(i).totalcart);
             }
         }
     }
@@ -176,15 +177,6 @@ class Store extends Cart{
         }
     }
 
-}
-/**
- * Главный, реализованы возможности
- * Просмотр товаров,
- * Добавление в корзину,
- * Оформление заказа
- * Просмотр статистики продаж
- */
-class Main extends Store {
     /**
      * Показ всех товаров в магазине (на складе)
      */
@@ -221,6 +213,11 @@ class Main extends Store {
         return checker;
     }
 
+    /**
+     * Получение товара по его наименовании со склада
+     * @param name
+     * @return
+     */
     public Product getProductOfWarehouse(String name){
         Product product = new Product();
         for (int i = 0; i < warehouse.size(); ++i){
@@ -230,19 +227,21 @@ class Main extends Store {
                 break;
             }
         }
-
         return product;
-
     }
-
 }
-
-public class Exam {
+/**
+ * Главный, реализованы возможности
+ * Просмотр товаров,
+ * Добавление в корзину,
+ * Оформление заказа
+ * Просмотр статистики продаж
+ */
+public class Main {
     public static void main(String[] args) {
         boolean marker = true;
-        Main obj = new Main();
+        Store obj = new Store();
         Cart cr = new Cart();
-
 
         // Добавить товар на склад магазина  (Начальная загрузка)
         // Первый товар
@@ -295,24 +294,24 @@ public class Exam {
                         Product productForCart = obj.getProductOfWarehouse(nameproduct);
                         System.out.printf("Количество товара %s в магазине %d",productForCart.name,productForCart.countProductToWarehouse);
                         System.out.println();
-                            while (true){
-                                System.out.print("Ведите количество желаемого товара = ");
-                                Scanner getcount = new Scanner(System.in);
-                                getcountincart = getcount.nextInt();
-                                if(getcountincart>0&&getcountincart<=productForCart.countProductToWarehouse){
-                                    break;
-                                } else {
-                                    System.out.println("Вы ввели неверное количество товаров, потворите ввод ");
-                                }
+                        while (true){
+                            System.out.print("Ведите количество желаемого товара = ");
+                            Scanner getcount = new Scanner(System.in);
+                            getcountincart = getcount.nextInt();
+                            if(getcountincart>0&&getcountincart<=productForCart.countProductToWarehouse){
+                                break;
+                            } else {
+                                System.out.println("Вы ввели неверное количество товаров, потворите ввод ");
                             }
-                         // Формируем товар с учётом выбранного количества
+                        }
+                        // Формируем товар с учётом выбранного количества
                         Product newproduct = new Product();
-                            newproduct.name = productForCart.name;
-                            newproduct.price = productForCart.price;
-                            newproduct.country = productForCart.country;
-                            newproduct.countProductToWarehouse = getcountincart;
+                        newproduct.name = productForCart.name;
+                        newproduct.price = productForCart.price;
+                        newproduct.country = productForCart.country;
+                        newproduct.countProductToWarehouse = getcountincart;
 
-                            // Корректировка количества товара в магазине (на складе)
+                        // Корректировка количества товара в магазине (на складе)
                         obj.updateInfoProduct(newproduct,newproduct.price,getcountincart);
 
                         // Добавление товара в корзину
@@ -376,8 +375,8 @@ public class Exam {
                     cr.delProductOfCart();
                     marker = true;
                     break;
-               case 0:
-                   System.out.println("0 - покинуть магазин ");
+                case 0:
+                    System.out.println("0 - покинуть магазин ");
                     marker = false;
                     break;
 
@@ -391,3 +390,4 @@ public class Exam {
 
     }
 }
+
