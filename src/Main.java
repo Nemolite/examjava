@@ -1,3 +1,4 @@
+import java.net.SocketOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -41,6 +42,7 @@ class Product{
  */
 class Cart extends Product{
     double totalcart;
+    int countproduct;
     /**
      * Формирование корзина покупателя
      */
@@ -58,10 +60,11 @@ class Cart extends Product{
      */
     public void delProductOfCart(){
         if (products.size()!=0){
-            for (int i = 0; i < products.size(); ++i){
+            for (int i = 0; i < products.size(); i++){
                 products.remove(i);
             }
         }
+        totalcart = 0.0;
     }
 
     /**
@@ -70,7 +73,7 @@ class Cart extends Product{
     public double countProductInCart(){
         double total = 0;
         if (products.size()!=0){
-            for (int i = 0; i < products.size(); ++i){
+            for (int i = 0; i < products.size(); i++){
                 total+=(products.get(i).price*products.get(i).countProductToWarehouse);
             }
         }
@@ -79,15 +82,29 @@ class Cart extends Product{
     }
 
     /**
+     * Подсчет общего количества товаров в корзине
+     */
+    public double countInCart(){
+        int count = 0;
+        if (products.size()!=0){
+            for (int i = 0; i < products.size(); i++){
+                count+=products.get(i).countProductToWarehouse;
+            }
+        }
+        this.countproduct = count;
+        return count;
+    }
+
+    /**
      * Показ товаров в корзине
      */
     public void showProductInCart(){
         System.out.println("Товары в вашей корзине");
         if (products.size()!=0){
-            for (int i = 0; i < products.size(); ++i){
+            for (int i = 0; i < products.size(); i++){
                 System.out.println(products.get(i).name);
                 System.out.println(products.get(i).country);
-                System.out.println(products.get(i).price);
+                System.out.println(products.get(i).price*products.get(i).countProductToWarehouse);
                 System.out.println(products.get(i).countProductToWarehouse);
             }
         }
@@ -111,6 +128,10 @@ class Store extends Cart{
      * Проданные товара
      */
     ArrayList<Double> soldproducts = new ArrayList<Double>();
+    /**
+     * Количество проданных товаров
+     */
+    ArrayList<Integer> soldproductscount = new ArrayList<Integer>();
 
     /**
      * Фиксируем добавление товара в корзину
@@ -131,7 +152,7 @@ class Store extends Cart{
      */
     public void updateInfoProduct(Product product,double price,int countProductToWarehouse){
         int tempcount;
-        for (int i = 0; i < warehouse.size(); ++i){
+        for (int i = 0; i < warehouse.size(); i++){
             if (product.name.equals(warehouse.get(i).name)) {
                 tempcount = warehouse.get(i).countProductToWarehouse;
                 warehouse.get(i).countProductToWarehouse =tempcount - countProductToWarehouse;
@@ -144,9 +165,15 @@ class Store extends Cart{
      */
     public void tosoldproducts(){
         if (sold.size()!=0){
-            for (int i = 0; i < sold.size(); ++i){
-                soldproducts.add(sold.get(i).totalcart);
-            }
+
+                System.out.print("Передано в статистику:");
+                System.out.println(sold.get(0).totalcart);
+                soldproducts.add(sold.get(0).totalcart);
+
+                System.out.print("Передано в статистику количество:");
+                System.out.println(sold.get(0).countproduct);
+                soldproductscount.add(sold.get(0).countproduct);
+
         }
     }
 
@@ -157,15 +184,22 @@ class Store extends Cart{
         System.out.println("Продано товаров:");
 
         if (soldproducts.size()!=0){
-            System.out.println("Всего:");
-            System.out.println(soldproducts.size());
-            int totslsled = 0;
-            for (int i = 0; i < soldproducts.size(); ++i){
-                totslsled+=soldproducts.get(i);
+            System.out.println("Всего (количество товаров):");
+            int totalcountstat = 0;
+
+            for (int i = 0; i < soldproductscount.size(); i++){
+                totalcountstat+=soldproductscount.get(i);
+
+            }
+            System.out.println(totalcountstat);
+            int totalsoldstat = 0;
+
+            for (int i = 0; i < soldproducts.size(); i++){
+                totalsoldstat+=soldproducts.get(i);
 
             }
             System.out.println("На сумму:");
-            System.out.println(totslsled);
+            System.out.println(totalsoldstat);
         }
     }
     /**
@@ -186,7 +220,7 @@ class Store extends Cart{
         System.out.println();
         System.out.println("***************************************************");
         if (warehouse.size()!=0){
-            for (int i = 0; i < warehouse.size(); ++i){
+            for (int i = 0; i < warehouse.size(); i++){
                 System.out.println(warehouse.get(i).name);
                 System.out.println(warehouse.get(i).country);
                 System.out.println(warehouse.get(i).price);
@@ -204,7 +238,7 @@ class Store extends Cart{
      */
     public boolean findProductOfWarehouse(String name){
         boolean checker = false;
-        for (int i = 0; i < warehouse.size(); ++i){
+        for (int i = 0; i < warehouse.size(); i++){
             if (name.equals(warehouse.get(i).name)){
                 checker = true;
                 break;
@@ -220,7 +254,7 @@ class Store extends Cart{
      */
     public Product getProductOfWarehouse(String name){
         Product product = new Product();
-        for (int i = 0; i < warehouse.size(); ++i){
+        for (int i = 0; i < warehouse.size(); i++){
             if (name.equals(warehouse.get(i).name)){
                 product.setProduct(warehouse.get(i).name,warehouse.get(i).country,warehouse.get(i).price,warehouse.get(i).countProductToWarehouse);
 
@@ -330,13 +364,13 @@ public class Main {
                     // Показ товаров в корзине
                     cr.showProductInCart();
                     System.out.print("Количество товаров в корзине = ");
-                    System.out.println(cr.countProductInCart());
+                    System.out.println(cr.countInCart());
+//                    System.out.println(cr.countProductInCart());
                     marker = true;
                     break;
                 case 4:
                     System.out.println("Выбрано 4 - показать статистику продаж ");
                     System.out.println("Проданные товары");
-
                     obj.getCountSale();
                     marker = true;
                     break;

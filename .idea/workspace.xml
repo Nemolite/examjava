@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cab621e3-3f16-42e3-9ebc-08978a4a7562" name="Changes" comment="ДЗ 1 модуль 2 v.6">
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    <list default="true" id="cab621e3-3f16-42e3-9ebc-08978a4a7562" name="Changes" comment="ДЗ 1 модуль 2 v.7">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1698858943370</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="ДЗ 1 модуль 2 v.7">
+      <created>1698986207715</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1698986207715</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -193,6 +199,7 @@
     <MESSAGE value="ДЗ 1 модуль 2 v.4" />
     <MESSAGE value="ДЗ 1 модуль 2 v.5" />
     <MESSAGE value="ДЗ 1 модуль 2 v.6" />
-    <option name="LAST_COMMIT_MESSAGE" value="ДЗ 1 модуль 2 v.6" />
+    <MESSAGE value="ДЗ 1 модуль 2 v.7" />
+    <option name="LAST_COMMIT_MESSAGE" value="ДЗ 1 модуль 2 v.7" />
   </component>
 </project>
